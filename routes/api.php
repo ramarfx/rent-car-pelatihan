@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PenaltyController;
+use App\Http\Controllers\RentController;
 use Illuminate\Http\Request;
 use App\Http\Middleware\CheckToken;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +23,7 @@ Route::middleware([CheckToken::class])->group(function () {
     Route::put('/register/{id}', [UserController::class, 'update']);
     Route::delete('/register/{id}', [UserController::class, 'delete']);
 
+
+    Route::apiResource('/rent', RentController::class);
+    Route::apiResource('/penalties', PenaltyController::class);
 });
