@@ -15,4 +15,9 @@ class Rent extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function carReturn()
+    {
+        return $this->hasOne(CarReturn::class);
+    }
 }

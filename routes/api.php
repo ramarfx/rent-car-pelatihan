@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CarReturnController;
 use App\Http\Controllers\PenaltyController;
 use App\Http\Controllers\RentController;
+use App\Models\CarReturn;
 use Illuminate\Http\Request;
 use App\Http\Middleware\CheckToken;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +28,5 @@ Route::middleware([CheckToken::class])->group(function () {
 
     Route::apiResource('/rent', RentController::class);
     Route::apiResource('/penalties', PenaltyController::class);
+    Route::apiResource('/return', CarReturnController::class);
 });

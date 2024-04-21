@@ -33,7 +33,7 @@ class RentController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:user,id',
+            'user_id' => 'required|exists:users,id',
             'tenant' => 'required',
             'no_car' => 'required',
             'date_borrow' => 'required|date',
@@ -66,10 +66,6 @@ class RentController extends Controller
      */
     public function show(string $id)
     {
-        // if (Auth::user()->role != 'admin') {
-        //     return response()->json(['message' => 'Forbidden'], 422);
-        // }
-
         $rent = Rent::find($id);
 
         if (!$rent) {
@@ -89,7 +85,7 @@ class RentController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:user,id',
+            'user_id' => 'required|exists:users,id',
             'tenant' => 'required',
             'no_car' => 'required',
             'date_borrow' => 'required|date',
