@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
@@ -12,7 +13,7 @@ const Register = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:8000/a1/register",
+                    "/register",
                     {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem(

@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         // jika bukan admin, maka tidak boleh register
         if (Auth::user()->role != 'admin') {
-            return response()->json(['message' => 'Forbidden'], 401);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         // validasi
@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         //jika admin, maka tidak boleh
         if (Auth::user()->role != 'admin') {
-            return response()->json(['message' => 'Forbidden'], 401);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         $user = User::all();
@@ -53,7 +53,7 @@ class UserController extends Controller
     {
         //jika admin, maka tidak boleh
         if (Auth::user()->role != 'admin') {
-            return response()->json(['message' => 'Forbidden'], 401);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         // validasi
@@ -79,12 +79,11 @@ class UserController extends Controller
     {
         //jika admin, maka tidak boleh
         if (Auth::user()->role != 'admin') {
-            return response()->json(['message' => 'Forbidden'], 401);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         $user = User::find($id);
         $user->delete();
         return response()->json(['message' => 'delete register success']);
     }
-
 }
