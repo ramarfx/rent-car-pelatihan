@@ -10,19 +10,27 @@ const Register = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const response  = await axios.get('http://localhost:8000/a1/register');
-            console.log(response);
+            try {
+                const response = await axios.get(
+                    "http://localhost:8000/a1/register",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                            )}`,
+                        },
+                    }
+                );
+                setRegisters(response.data);
+            } catch (error) {
+                if (error.response.status == 401) {
+                    navigate("/login");
+                }
+            }
+        };
 
-        } catch (error) {
-              if (error.response.status == 401) {
-                  navigate('/login');
-              }
-          }
-        }
-
-        fetchData()
-    },[])
+        fetchData();
+    }, []);
 
     return (
         <div>
@@ -36,10 +44,13 @@ const Register = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>test</td>
-                        <td>test</td>
-                    </tr>
+                    {registers &&
+                        registers.map((register) => (
+                            <tr key={register.id}>
+                                <td>{register.username}</td>
+                                <td>{register.phone}</td>
+                            </tr>
+                        ))}
                 </tbody>
             </Table>
         </div>
