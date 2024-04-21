@@ -34,7 +34,7 @@ class CarReturnController extends Controller
 
         $validator = Validator::make($request->all(), [
             'rent_id' => 'required|exists:rents,id',
-            'penalty_id' => 'required|exists:penalties,id',
+            'penalty_id' => 'required|exists:penalties,id', 
             'date_return' => 'required',
             'total' => 'required',
         ]);
@@ -43,12 +43,12 @@ class CarReturnController extends Controller
             return response()->json(['message'=> 'invalid field'], 401);
         }
 
-        $rent = new CarReturn();
-        $rent->rent_id = $request->rent_id;
-        $rent->penalty_id = $request->penalty_id;
-        $rent->date_return = $request->date_return;
-        $rent->total = $request->total;
-        $rent->save();
+        $carReturn = new CarReturn();
+        $carReturn->rent_id = $request->rent_id;
+        $carReturn->penalty_id = $request->penalty_id;
+        $carReturn->date_return = $request->date_return;
+        $carReturn->total = $request->total;
+        $carReturn->save();
 
         return response()->json(['message' => 'create car return success']);
     }
