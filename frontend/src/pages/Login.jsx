@@ -1,23 +1,29 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const { setToken } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault(); //ketika di submit tidak direfresh
 
         try {
-            const response = await axios.post("http://localhost:8000/a1/auth/login", {
-                username,
-                password,
-            });
+            const response = await axios.post(
+                "http://localhost:8000/a1/auth/login",
+                {
+                    username,
+                    password,
+                }
+            );
 
-            localStorage.setItem("token", response.data.token);
+            setToken(response.data.token);
+            console.log('login berhasil');
         } catch (error) {
-            console.log(error.response);
+            console.log(error);
         }
     };
 

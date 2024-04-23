@@ -7,8 +7,15 @@ import Penalties from "./pages/Penalties";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Container } from "react-bootstrap";
+import { useAuth } from "./context/AuthContext";
+import { useEffect } from "react";
 
 const App = () => {
+    const { token } = useAuth();
+    useEffect(() => {
+        console.log('global', token);
+    }, [token]);
+
     return (
         <div>
             <BrowserRouter>

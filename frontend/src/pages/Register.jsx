@@ -1,12 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
     const [registers, setRegisters] = useState([]);
+    const { token } = useAuth();
 
-    const navigate = useNavigate();
+    if (!token) {
+        return <Navigate to={"/login"} />;
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,9 +27,7 @@ const Register = () => {
                 );
                 setRegisters(response.data);
             } catch (error) {
-                if (error.response.status == 401) {
-                    navigate("/login");
-                }
+                console.log(error);
             }
         };
 
