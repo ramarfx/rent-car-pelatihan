@@ -1,6 +1,30 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import { useAuth } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const Rent = () => {
+    const [rents, setRents] = useState([]);
+    const { token } = useAuth();
+
+    if (!token) {
+        return <Navigate to={"/login"} />;
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("/rent");
+
+                setRents(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, []);
     return (
         <div>
             <h1>Rent</h1>
@@ -17,14 +41,17 @@ const Rent = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                    </tr>
+                    {rents &&
+                        rents.map((rent) => (
+                            <tr key={rent.id}>
+                                <td>{rent.tenant}</td>
+                                <td>{rent.no_car}</td>
+                                <td>{rent.date_borrow}</td>
+                                <td>{rent.date_return}</td>
+                                <td>{rent.down_payment}</td>
+                                <td>{rent.total}</td>
+                            </tr>
+                        ))}
                 </tbody>
             </Table>
         </div>

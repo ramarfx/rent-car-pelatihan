@@ -20,7 +20,7 @@ class CarReturnController extends Controller
             $carReturns = CarReturn::where('user_id', Auth::user()->id)->get();
         }
 
-        return response()->json(compact('carReturns'));
+        return response()->json($carReturns);
     }
 
     /**
@@ -34,7 +34,7 @@ class CarReturnController extends Controller
 
         $validator = Validator::make($request->all(), [
             'rent_id' => 'required|exists:rents,id',
-            'penalty_id' => 'required|exists:penalties,id', 
+            'penalty_id' => 'required|exists:penalties,id',
             'date_return' => 'required',
             'total' => 'required',
         ]);

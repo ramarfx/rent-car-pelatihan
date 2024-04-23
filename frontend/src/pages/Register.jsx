@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ForbiddenPage from "../components/forbidden";
 
 const Register = () => {
     const [registers, setRegisters] = useState([]);
+    const [isForbidden, setIsForbidden] = useState(false);
     const { token } = useAuth();
 
     if (!token) {
@@ -15,18 +17,12 @@ const Register = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(
-                    "http://localhost:8000/a1/register",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem(
-                                "token"
-                            )}`,
-                        },
-                    }
-                );
+                const response = await axios.get("/register");
                 setRegisters(response.data);
             } catch (error) {
+                if (error.response.status === 403) {
+                    setIsForbidden(true);
+                }
                 console.log(error);
             }
         };
@@ -55,6 +51,8 @@ const Register = () => {
                         ))}
                 </tbody>
             </Table>
+            
+            {isForbidden && <ForbiddenPage />}
         </div>
     );
 };

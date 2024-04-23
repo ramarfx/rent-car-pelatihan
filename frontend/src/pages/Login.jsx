@@ -29,7 +29,7 @@ const Login = () => {
 
     return (
         <div>
-            <h1>Form</h1>
+            <h1>Login</h1>
 
             <Form onSubmit={handleSubmit}>
                 <Form.Group>

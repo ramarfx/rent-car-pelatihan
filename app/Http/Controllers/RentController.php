@@ -20,7 +20,7 @@ class RentController extends Controller
             $rents = Rent::where('user_id', Auth::user()->id)->get();
         }
 
-        return response()->json(compact('rents'));
+        return response()->json($rents);
     }
 
     /**
