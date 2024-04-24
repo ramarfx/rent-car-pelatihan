@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Button, Table } from "react-bootstrap";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import ForbiddenPage from "../components/forbidden";
 
@@ -34,6 +34,10 @@ const Register = () => {
         <div>
             <h1>Register</h1>
 
+            <Link to={'/register/add'}>
+                <Button variant="success">tambah</Button>
+            </Link>
+
             <Table>
                 <thead>
                     <tr>
@@ -51,7 +55,7 @@ const Register = () => {
                         ))}
                 </tbody>
             </Table>
-            
+
             {isForbidden && <ForbiddenPage />}
         </div>
     );

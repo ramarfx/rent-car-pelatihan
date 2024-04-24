@@ -9,11 +9,14 @@ import Register from "./pages/Register";
 import { Container } from "react-bootstrap";
 import { useAuth } from "./context/AuthContext";
 import { useEffect } from "react";
+import AddRegisterPage from "./pages/register/AddRegister";
+import AddRentPage from "./pages/rent/AddRent";
+import EditRentPage from "./pages/rent/editRent";
 
 const App = () => {
     const { token } = useAuth();
     useEffect(() => {
-        console.log('global', token);
+        console.log("global", token);
     }, [token]);
 
     return (
@@ -28,6 +31,13 @@ const App = () => {
                         <Route path="/penalties" element={<Penalties />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/login" element={<Login />} />
+
+                        <Route
+                            path="/register/add"
+                            element={<AddRegisterPage />}
+                        />
+                        <Route path="/rent/add" element={<AddRentPage />} />
+                        <Route path="/rent/:id/update" element={<EditRentPage/>}/>
                     </Routes>
                 </Container>
             </BrowserRouter>

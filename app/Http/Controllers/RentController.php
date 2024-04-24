@@ -44,7 +44,7 @@ class RentController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message'=> 'invalid login'], 401);
+            return response()->json(['message'=> 'invalid field'], 401);
         }
 
         $rent = new Rent();
@@ -96,7 +96,7 @@ class RentController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message'=> 'invalid login'], 401);
+            return response()->json(['message'=> $validator->errors()], 401);
         }
 
         $rent = Rent::find($id);
