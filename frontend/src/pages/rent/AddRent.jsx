@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const AddRentPage = () => {
     const [users, setUsers] = useState([]);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -34,6 +36,7 @@ const AddRentPage = () => {
             const response = await axios.post("/rent", payload);
 
             console.log(response);
+            navigate('/rent')
         } catch (error) {
             console.log(error);
         }

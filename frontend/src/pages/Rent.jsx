@@ -12,20 +12,29 @@ const Rent = () => {
         return <Navigate to={"/login"} />;
     }
 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("/rent");
+
+            setRents(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("/rent");
-
-                setRents(response.data);
-                
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
         fetchData();
     }, []);
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await axios.delete(`/rent/${id}`)
+            console.log(response);
+            fetchData();
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <div>
             <h1>Rent</h1>
@@ -55,7 +64,13 @@ const Rent = () => {
                                 <td>{rent.date_return}</td>
                                 <td>{rent.down_payment}</td>
                                 <td>{rent.total}</td>
-                                <td><Link to={`/rent/${rent.id}/update`}>update</Link></td>
+                                <td className="d-flex gap-2">
+                                    <Link to={`/rent/${rent.id}/update`}>
+                                        <Button>update</Button>
+                                    </Link>
+
+                                    <Button variant="danger" onClick={() => handleDelete(rent.id)}>delete</Button>
+                                </td>
                             </tr>
                         ))}
                 </tbody>
