@@ -26,6 +26,8 @@ class AuthController extends Controller
             $user->token = bcrypt($user->id);
             $user->save();
 
+            //test
+
             return response()->json(['token' => $user->token], 200);
         } else {
             return response()->json(['message' => 'invalid login'], 401);
