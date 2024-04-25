@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home } from "./pages/Home";
+import { Home } from "./pages/return/Home";
 import TopBar from "./components/Topbar";
 import Rent from "./pages/Rent";
 import Return from "./pages/Return";
@@ -12,6 +12,9 @@ import { useEffect } from "react";
 import AddRegisterPage from "./pages/register/AddRegister";
 import AddRentPage from "./pages/rent/AddRent";
 import EditRentPage from "./pages/rent/editRent";
+import AddPenaltyPage from "./pages/penalty/AddPenalty";
+import EditPenaltyPage from "./pages/penalty/EditPenalty";
+import AddReturnPage from "./pages/return/AddReturn";
 
 const App = () => {
     const { token } = useAuth();
@@ -37,7 +40,22 @@ const App = () => {
                             element={<AddRegisterPage />}
                         />
                         <Route path="/rent/add" element={<AddRentPage />} />
-                        <Route path="/rent/:id/update" element={<EditRentPage/>}/>
+                        <Route
+                            path="/rent/:id/update"
+                            element={<EditRentPage />}
+                        />
+
+                        <Route
+                            path="/penalties/add"
+                            element={<AddPenaltyPage />}
+                        />
+                        <Route
+                            path="/penalties/:id/update"
+                            element={<EditPenaltyPage />}
+                        />
+
+                        <Route path="/return/add" element={<AddReturnPage />} />
+                        
                     </Routes>
                 </Container>
             </BrowserRouter>

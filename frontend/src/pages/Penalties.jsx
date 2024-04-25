@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Button, Table } from "react-bootstrap";
+import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 
@@ -11,35 +11,40 @@ const Penalties = () => {
     if (!token) {
         return <Navigate to={"/login"} />;
     }
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("/penalties");
+            setPenalties(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("/penalties");
-                setPenalties(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
         fetchData();
-
-
     }, []);
 
-    useEffect(() => {
-        console.log("penalties", penalties);
-    },[penalties])
+    const handleDelete = async (id) => {
+        try {
+            const response = await axios.delete(`/penalties/${id}`);
+            console.log(response);
+            fetchData();
+        } catch (error) {
+            throw error;
+        }
+    };
     return (
         <div>
             <h1>Penalties</h1>
 
+            <Button variant="success">Add Penalty</Button>
             <Table>
                 <thead>
                     <tr>
                         <th>username</th>
                         <th>Keterangan</th>
                         <th>Total</th>
+                        <td>action</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +54,20 @@ const Penalties = () => {
                                 <td>fulan</td>
                                 <td>{penalty.keterangan}</td>
                                 <td>{penalty.total}</td>
+                                <td className="d-flex gap-2">
+                                    <Link
+                                        to={`/penalties/${penalty.id}/update`}
+                                    >
+                                        <Button>Update</Button>
+                                    </Link>
+
+                                    <Button
+                                        variant="danger"
+                                        onClick={() => handleDelete(penalty.id)}
+                                    >
+                                        Delete
+                                    </Button>
+                                </td>
                             </tr>
                         ))}
                 </tbody>

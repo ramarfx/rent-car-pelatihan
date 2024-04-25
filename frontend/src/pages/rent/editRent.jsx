@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditRentPage = () => {
     const [users, setUsers] = useState([]);
     const [rent, setRent] = useState([]);
     const { id } = useParams();
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -19,6 +20,10 @@ const EditRentPage = () => {
                 console.log(responseRent);
                 setRent(responseRent.data);
             } catch (error) {
+                if (error.response.status == 404) {
+                    alert("data not found");
+                    navigate('/rent')
+                }
                 console.log(error);
             }
         };

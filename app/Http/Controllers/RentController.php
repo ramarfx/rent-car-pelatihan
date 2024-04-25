@@ -69,7 +69,7 @@ class RentController extends Controller
         $rent = Rent::find($id);
 
         if (!$rent) {
-            return response()->json(['message' => 'rent not found']);
+            return response()->json(['message' => 'rent not found'], 404);
         }
 
         return response()->json($rent);
