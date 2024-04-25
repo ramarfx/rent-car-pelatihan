@@ -72,6 +72,8 @@ class RentController extends Controller
             return response()->json(['message' => 'rent not found'], 404);
         }
 
+        //test
+
         return response()->json($rent);
     }
 
