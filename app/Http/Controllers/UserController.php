@@ -49,6 +49,18 @@ class UserController extends Controller
         return response()->json($user);
     }
 
+    public function show(string $id)
+    {
+        // 1. get data by id
+        $rent = User::find($id);
+        // 2. Jika data tidak ditemukan
+        if(!$rent) {
+            return response()->json(["message" => "Rent not found"], 404);
+        }
+        // 3. return json
+        return response()->json($rent);
+    }
+
     public function update(Request $request, string $id)
     {
         //jika admin, maka tidak boleh

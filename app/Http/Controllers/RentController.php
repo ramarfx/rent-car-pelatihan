@@ -20,7 +20,7 @@ class RentController extends Controller
             $rents = Rent::where('user_id', Auth::user()->id)->get();
         }
 
-        return response()->json(compact('rents'));
+        return response()->json($rents);
     }
 
     /**
@@ -40,7 +40,6 @@ class RentController extends Controller
             'date_return' => 'required|date',
             'down_payment' => 'required',
             'total' => 'required',
-            'status' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -55,7 +54,6 @@ class RentController extends Controller
         $rent->date_return = $request->date_return;
         $rent->down_payment = $request->down_payment;
         $rent->total = $request->total;
-        $rent->status = $request->status;
         $rent->save();
 
         return response()->json(['message' => 'create rent success']);
@@ -92,11 +90,10 @@ class RentController extends Controller
             'date_return' => 'required|date',
             'down_payment' => 'required',
             'total' => 'required',
-            'status' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message'=> 'invalid login'], 401);
+            return response()->json(['message'=> 'invalid field'], 401);
         }
 
         //tes
@@ -109,7 +106,6 @@ class RentController extends Controller
         $rent->date_return = $request->date_return;
         $rent->down_payment = $request->down_payment;
         $rent->total = $request->total;
-        $rent->status = $request->status;
         $rent->save();
 
         return response()->json($rent);

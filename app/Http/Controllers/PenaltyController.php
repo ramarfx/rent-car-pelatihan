@@ -15,7 +15,7 @@ class PenaltyController extends Controller
     public function index()
     {
         if (Auth::user()->role === 'admin') {
-            $penalties = Penalty::all();
+            $penalties = Penalty::with('user')->get();
         } else {
             $penalties = Penalty::where('user_id', Auth::user()->id)->get();
         }
@@ -40,7 +40,7 @@ class PenaltyController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message'=> 'invalid login'], 401);
+            return response()->json(['message'=> 'invalid field'], 422);
         }
 
         $penalty = new Penalty();

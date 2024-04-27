@@ -15,12 +15,12 @@ class CarReturnController extends Controller
     public function index()
     {
         if (Auth::user()->role === 'admin') {
-            $carReturns = CarReturn::all();
+            $carReturns = CarReturn::with('rent', 'penalty')->get();
         } else {
-            $carReturns = CarReturn::where('user_id', Auth::user()->id)->get();
+            $carReturns = CarReturn::with('rent', 'penalty')->where('user_id', Auth::user()->id)->get();
         }
 
-        return response()->json(compact('carReturns'));
+        return response()->json($carReturns);
     }
 
     /**
@@ -40,7 +40,7 @@ class CarReturnController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message'=> 'invalid field'], 401);
+            return response()->json(['message'=> 'invalid field', 'errors' => $validator->errors()], 422);
         }
 
         $carReturn = new CarReturn();
@@ -84,7 +84,7 @@ class CarReturnController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message'=> 'invalid login'], 401);
+            return response()->json(['message'=> 'invalid field'], 422);
         }
 
         $rent = CarReturn::find($id);
