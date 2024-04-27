@@ -29,7 +29,7 @@ class PenaltyController extends Controller
     public function store(Request $request)
     {
         if (Auth::user()->role != 'admin') {
-            return response()->json(['message' => 'Forbidden'], 422);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         $validator = Validator::make($request->all(), [
@@ -58,10 +58,6 @@ class PenaltyController extends Controller
      */
     public function show(string $id)
     {
-                // if (Auth::user()->role != 'admin') {
-        //     return response()->json(['message' => 'Forbidden'], 422);
-        // }
-
         $penalty = Penalty::find($id);
 
         if (!$penalty) {
@@ -77,7 +73,7 @@ class PenaltyController extends Controller
     public function update(Request $request, string $id)
     {
         if (Auth::user()->role != 'admin') {
-            return response()->json(['message' => 'Forbidden'], 422);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         $validator = Validator::make($request->all(), [
@@ -107,7 +103,7 @@ class PenaltyController extends Controller
     public function destroy(string $id)
     {
         if (Auth::user()->role != 'admin') {
-            return response()->json(['message' => 'Forbidden'], 422);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         $penalty = Penalty::find($id);

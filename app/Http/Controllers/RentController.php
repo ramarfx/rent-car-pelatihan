@@ -29,7 +29,7 @@ class RentController extends Controller
     public function store(Request $request)
     {
         if (Auth::user()->role != 'admin') {
-            return response()->json(['message' => 'Forbidden'], 422);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         $validator = Validator::make($request->all(), [
@@ -81,7 +81,7 @@ class RentController extends Controller
     public function update(Request $request, string $id)
     {
         if (Auth::user()->role != 'admin') {
-            return response()->json(['message' => 'Forbidden'], 422);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         $validator = Validator::make($request->all(), [
@@ -121,7 +121,7 @@ class RentController extends Controller
     public function destroy(string $id)
     {
         if (Auth::user()->role != 'admin') {
-            return response()->json(['message' => 'Forbidden'], 422);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         $rent = Rent::find($id);
