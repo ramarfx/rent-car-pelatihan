@@ -99,6 +99,8 @@ class RentController extends Controller
             return response()->json(['message'=> 'invalid login'], 401);
         }
 
+        //tes
+
         $rent = Rent::find($id);
         $rent->user_id = $request->user_id;
         $rent->tenant = $request->tenant;
